@@ -7,9 +7,8 @@
       "outDir": "./build",
       "rootDir": "./",
       "resolveJsonModule": true,
-      "skipLibCheck": true
+      "skipLibCheck": true,
     },
     "include": ["./server/**/*"],
     "exclude": ["node_modules","build"]
 }
-  
