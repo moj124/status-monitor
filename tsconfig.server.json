@@ -4,12 +4,12 @@
       "module": "commonjs",
       "strict": true,
       "esModuleInterop": true,
-      "outDir": "../dist",
-      "rootDir": "./src",
+      "outDir": "./build",
+      "rootDir": "./",
       "resolveJsonModule": true,
       "skipLibCheck": true
     },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules"]
+    "include": ["./server/**/*"],
+    "exclude": ["node_modules","build"]
 }
   
