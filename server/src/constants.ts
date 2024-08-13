@@ -4,6 +4,9 @@ config();
 
 export const POLLING_INTERVAL = parseInt(process.env.POLLING_INTERVAL!, 10);
 
+const PRE_FETCH_URL_PART = 'https://data--';
+const POST_FETCH_URL_PART = '.upscope.io/status?stats=1';
+
 export const REGIONS = [
     'sa-east',
     'eu-west',
@@ -13,8 +16,8 @@ export const REGIONS = [
 ]
 
 const URL_ENDPOINTS = REGIONS.map((elem) => 
-    process.env.PRE_FETCH_URL_PART +
+    PRE_FETCH_URL_PART +
     elem +
-    process.env.POST_FETCH_URL_PART
+    POST_FETCH_URL_PART
 );
 export default URL_ENDPOINTS;

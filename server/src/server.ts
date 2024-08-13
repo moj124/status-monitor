@@ -38,8 +38,8 @@ setInterval(async () => {
   broadcast(statuses);
 }, POLLING_INTERVAL);
 
-const server = app.listen(process.env.SERVER_PORT, () => {
-  console.log(`Server is running on http://localhost:${process.env.SERVER_PORT}`);
+const server = app.listen(process.env.REACT_APP_SERVER_PORT, () => {
+  console.log(`Server is running on http://localhost:${process.env.REACT_APP_SERVER_PORT}`);
 });
 
 // HTTP server to handle upgrades to WebSocket
