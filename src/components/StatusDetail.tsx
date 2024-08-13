@@ -1,11 +1,12 @@
+import { useCallback } from 'react';
 import Status from "../types/Status";
-import { UtilizationRate } from "../types/UtilizationRate";
 import getCPUUtilization from "../utils/getCPUUtilization";
 import getServices from "../utils/getServices";
 import isOperational from "../utils/isOperational";
 import StatisticsDetail from "./StatisticsDetail";
 import {useState} from 'react';
 import '../styles/StatusDetail.css';
+import getUtilizationModifierClass from '../utils/getUtilizationModifierClass';
 
 type StatusDetailProps = {
     status: Status;
@@ -13,7 +14,8 @@ type StatusDetailProps = {
 
 const StatusDetail = ({ status }: StatusDetailProps) => {
     const [viewStats, setViewStats] = useState(false);
-    const handleClick = () => setViewStats((prev) => !prev);
+    
+    const handleClick = useCallback(() => setViewStats((prev) => !prev), [setViewStats]);
     
     return (
         <div className="status-detail__wrapper">  
@@ -47,12 +49,7 @@ const StatusDetail = ({ status }: StatusDetailProps) => {
                         <div
                             className={`
                                 status-detail__status
-                                ${getCPUUtilization(status) === UtilizationRate.LOW ? 
-                                    'status-detail--success' :
-                                    getCPUUtilization(status) === UtilizationRate.MID ? 
-                                        'status-detail--warning' :
-                                        'status-detail--error'
-                                }
+                                ${getUtilizationModifierClass(status)}
                             `}
                         >{getCPUUtilization(status)} CPU load</div>
                     </div>
