@@ -1,0 +1,28 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.server
+      target: production
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+
+  client:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.client
+      target: production
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "8080:8080"
