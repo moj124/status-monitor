@@ -13,11 +13,12 @@
     "ws": "^8.18.0"
   },
   "scripts": {
-    "start:server": "node dist/server.js",
+    "start:server": "node build/server/src/server.js",
     "build:server": "tsc --project tsconfig.server.json",
     "dev:server": "npx ts-node -P ./tsconfig.server.json ./server/src/server.ts",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:full": "npm run build && npm run build:server",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
