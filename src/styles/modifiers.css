@@ -1,0 +1,23 @@
+.background--success {
+    background-color: green;
+}
+
+.background--warning {
+    background-color: rgb(158, 158, 11);
+}
+
+.background--error {
+    background-color: red;
+}
+
+.text--success {
+   color: green;
+}
+
+.text--warning {
+   color: yellow;
+}
+
+.text--error {
+   color: red;
+}

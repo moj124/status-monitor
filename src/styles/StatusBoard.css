@@ -1,3 +1,5 @@
+@import './modifiers.css';
+
 .status-board__list {
     display: flex;
     flex-direction: column;
@@ -12,16 +14,4 @@
     color: white;
     font-size: 1.25em;
     font-weight: 500;
-}
-
-.status-board--success {
-    background-color: green;
-}
-
-.status-board--warning {
-    background-color: rgb(158, 158, 11);
-}
-
-.status-board--error {
-    background-color: red;
 }

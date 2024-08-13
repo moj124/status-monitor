@@ -1,3 +1,5 @@
+@import './modifiers.css';
+
 .status-detail__title {
     font-size: 1.75em;
     font-weight: 600;
@@ -54,35 +56,4 @@
         justify-content: center;
         margin: 0 10px 0 0;
     }
-}
-
-.status-detail__status {
-    border-radius: 10px;
-    padding: 4px;
-    text-align: center;
-    color: white;
-}
-
-.status-detail--success {
-    background-color: green;
-}
-
-.status-detail--warning {
-    background-color: rgb(158, 158, 11);
-}
-
-.status-detail--error {
-    background-color: red;
-}
-
-.status-detail--success-text {
-   color: green;
-}
-
-.status-detail--warning-text {
-   color: yellow;
-}
-
-.status-detail--error-text {
-   color: red;
 }

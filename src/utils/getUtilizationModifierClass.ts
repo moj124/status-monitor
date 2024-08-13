@@ -3,8 +3,8 @@ import { UtilizationRate } from "../types/UtilizationRate";
 import getCPUUtilization from "./getCPUUtilization";
 
 const getUtilizationModifierClass = (status: Status) => {
-    if (getCPUUtilization(status) === UtilizationRate.LOW) return 'status-detail--success';
-    if (getCPUUtilization(status) === UtilizationRate.MID) return 'status-detail--warning';
-    return 'status-detail--error'
+    if (getCPUUtilization(status) === UtilizationRate.LOW) return 'background--success';
+    if (getCPUUtilization(status) === UtilizationRate.MID) return 'background--warning';
+    return 'background--error'
 };
 export default getUtilizationModifierClass;

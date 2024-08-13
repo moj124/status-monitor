@@ -3,8 +3,8 @@ import getAvailability from "./getAvailability";
 import { Response } from "../types/Status";
 
 const getAvailabilityModifierClass = (statuses: Response[]) => {
-    if(getAvailability(statuses) === AvailableRegions.all) return 'status-board--success';
-    if(getAvailability(statuses) === AvailableRegions.limited) return 'status-board--warning';
-    return 'status-board--error';
+    if(getAvailability(statuses) === AvailableRegions.all) return 'background--success';
+    if(getAvailability(statuses) === AvailableRegions.limited) return 'background--warning';
+    return 'background--error';
 };
 export default getAvailabilityModifierClass;

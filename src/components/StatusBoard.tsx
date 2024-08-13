@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Response } from '../types/Status';
 import getAvailability from '../utils/getAvailability';
+import getAvailabilityModifierClass from '../utils/getAvailabilityModifierClass';
+import { Response } from '../types/Status';
 import StatusDetail from './StatusDetail';
 import '../styles/StatusBoard.css';
-import getAvailabilityModifierClass from '../utils/getAvailabilityModifierClass';
 
 const StatusBoard = () => {
   const [statuses, setStatuses] = useState<Response[]>([]);
@@ -43,13 +43,13 @@ const StatusBoard = () => {
   }, []);
 
   if(loading) return (
-    <div className='status-board__banner status-board--warning'>
+    <div className='status-board__banner background--warning'>
       Loading data...
     </div>
   );
 
   if(error) return (
-    <div className='status-board__banner status-board--error'>
+    <div className='status-board__banner background--error'>
       A error has occurred whilst fetching data...
     </div>
   );
