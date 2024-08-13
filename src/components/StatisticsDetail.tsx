@@ -9,7 +9,7 @@ type StatisticsDetailProps = {
 }
 
 const StatisticsDetail = ({ stats, isOpen }: StatisticsDetailProps) => {
-    if (!isOpen) return;
+    if (!isOpen) return null;
 
     return (
     <div className="statistics-detail__wrapper">

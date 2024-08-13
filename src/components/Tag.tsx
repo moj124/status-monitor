@@ -19,14 +19,15 @@ const Tag = ({name, status, modifier}: TagProps) => {
     );
 
     if (modifier !== undefined) return (
-        <div
-        className={`
-            tag__status
-            ${modifier}
-        `}
-    >
-        {name}
-    </div>
+        <div className={`tag__status ${modifier}`}>
+            {name}
+        </div>
+    );
+
+    return (
+        <div className={`tag__status ${modifier}`}>
+            {name}
+        </div>
     );
 };
 export default Tag;
