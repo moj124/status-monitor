@@ -1,46 +1,14 @@
-import { useEffect, useState } from 'react';
 import getAvailability from '../utils/getAvailability';
 import getAvailabilityModifierClass from '../utils/getAvailabilityModifierClass';
-import { Response } from '../types/Status';
+import useWebSocketStatus from '../hooks/useWebSocketStatus'; 
 import StatusDetail from './StatusDetail';
 import '../styles/StatusBoard.css';
 
 const StatusBoard = () => {
-  const [statuses, setStatuses] = useState<Response[]>([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-    const ws = new WebSocket(`${protocol}://localhost:${process.env.REACT_APP_SERVER_PORT}`);
-
-    ws.onopen = () => setLoading(true);
-
-    ws.onmessage = (event) => {
-      try {        
-        const data = JSON.parse(event.data) as Response[];
-        setStatuses(data);
-      } catch (error) {
-        console.error("Error parsing WebSocket message:", error);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    ws.onerror = (event) => {
-      console.error("WebSocket error observed:", event);
-      setError(true);
-    };
-
-    return () => {
-      if(ws.readyState === WebSocket.OPEN) {
-        ws.close();
-      } else if (ws.readyState === WebSocket.CONNECTING) {
-        ws.onopen = () => ws.close();
-      }
-    };
-  }, []);
+  const { statuses, error, loading } = useWebSocketStatus(
+    process.env.REACT_APP_SERVER_PORT!,
+    process.env.REACT_APP_HOSTNAME!
+  );
 
   if(loading) return (
     <div className='status-board__banner background--warning'>
