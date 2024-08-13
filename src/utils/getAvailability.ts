@@ -13,7 +13,7 @@ const getAvailability = (statuses: Response[]) => {
       availableRegions.push({region: region, services: results});
     }
     if(availableRegions.length === 0) return AvailableRegions.none;
-    if(availableRegions.length < REGIONS.length) return AvailableRegions.multiple;
+    if(availableRegions.length < REGIONS.length) return AvailableRegions.limited;
     return AvailableRegions.all;
 };
 export default getAvailability;

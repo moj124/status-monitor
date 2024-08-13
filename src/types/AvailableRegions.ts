@@ -1,6 +1,6 @@
 enum AvailableRegions {
     none = 'No regions',
-    multiple = 'Multiple regions',
+    limited = 'Limited regions',
     all = 'All regions'
 };
 export default AvailableRegions;

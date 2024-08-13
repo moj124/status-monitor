@@ -3,6 +3,7 @@ import { Response } from '../types/Status';
 import getAvailability from '../utils/getAvailability';
 import StatusDetail from './StatusDetail';
 import '../styles/StatusBoard.css';
+import getAvailabilityModifierClass from '../utils/getAvailabilityModifierClass';
 
 const StatusBoard = () => {
   const [statuses, setStatuses] = useState<Response[]>([]);
@@ -13,15 +14,14 @@ const StatusBoard = () => {
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
     const ws = new WebSocket(`${protocol}://localhost:${process.env.REACT_APP_SERVER_PORT}`);
 
-    ws.onopen = () => {
-      setLoading(true);
-    }
+    ws.onopen = () => setLoading(true);
 
     ws.onmessage = (event) => {
       try {        
         const data = JSON.parse(event.data) as Response[];
         setStatuses(data);
       } catch (error) {
+        console.error("Error parsing WebSocket message:", error);
         setError(true);
       } finally {
         setLoading(false);
@@ -42,39 +42,32 @@ const StatusBoard = () => {
     };
   }, []);
 
-  if(error) return (
-    <div className='status-board__banner status-board--error'>
-      A error has occurred whilst fetching data... Please reload the page.
-    </div>
-  );
-
   if(loading) return (
     <div className='status-board__banner status-board--warning'>
       Loading data...
     </div>
   );
 
+  if(error) return (
+    <div className='status-board__banner status-board--error'>
+      A error has occurred whilst fetching data...
+    </div>
+  );
+
   return (
     <>
-      <div>
-        <div 
-          className={`
-            status-board__banner
-            ${getAvailability(statuses) ?
-                'status-board--success' :
-                getAvailability(statuses) ?
-                  'status-board--warning' :
-                  'status-board--error'
-            }
-          `}
-        >
-          Service Availability: {getAvailability(statuses)}
-        </div>
-        <div className="status-board__list">
-          {statuses.map((status, index) => (
-            <StatusDetail key={index} status={status.data}/>
-          ))}
-        </div>
+      <div 
+        className={`
+          status-board__banner
+          ${getAvailabilityModifierClass(statuses)}
+        `}
+      >
+        Service Availability: {getAvailability(statuses)}
+      </div>
+      <div className="status-board__list">
+        {statuses.map((status, index) => (
+          <StatusDetail key={index} status={status.data}/>
+        ))}
       </div>
     </>
   );
