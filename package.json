@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start:server": "node dist/server.js",
-    "build:server": "tsc",
+    "build:server": "tsc --project tsconfig.server.json",
     "dev:server": "npx ts-node -P ./tsconfig.server.json ./server/src/server.ts",
     "start": "react-scripts start",
     "build": "react-scripts build",
