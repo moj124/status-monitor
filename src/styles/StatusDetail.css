@@ -1,0 +1,88 @@
+.status-detail__title {
+    font-size: 1.75em;
+    font-weight: 600;
+}
+
+.status-detail__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px;
+
+    border: 1px solid lightgray;
+    border-radius: 10px;
+
+    @media (min-width: 480px) {
+        flex-direction: row;
+    }
+}
+
+.status-detail__tags {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    height: 30px;
+}
+
+.status-detail__heading {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    margin-bottom: 14px;
+}
+
+.status-detail__symbol {
+    display: flex;
+    font-size: 1.5em;
+    font-weight: 600;
+    justify-content: center;
+    align-items: center;
+}
+.status-detail--shift-down {
+    margin-top: 6px;
+}
+
+.status-detail__state {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 10px 10px 10px 0;
+
+    font-size: 1.25em;
+
+    @media (min-width: 480px) {
+        justify-content: center;
+        margin: 0 10px 0 0;
+    }
+}
+
+.status-detail__status {
+    border-radius: 10px;
+    padding: 4px;
+    text-align: center;
+    color: white;
+}
+
+.status-detail--success {
+    background-color: green;
+}
+
+.status-detail--warning {
+    background-color: rgb(158, 158, 11);
+}
+
+.status-detail--error {
+    background-color: red;
+}
+
+.status-detail--success-text {
+   color: green;
+}
+
+.status-detail--warning-text {
+   color: yellow;
+}
+
+.status-detail--error-text {
+   color: red;
+}
