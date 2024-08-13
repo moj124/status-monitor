@@ -1,12 +1,12 @@
-import { useCallback } from 'react';
-import Status from "../types/Status";
+import { useState, useCallback } from 'react';
 import getCPUUtilization from "../utils/getCPUUtilization";
 import getServices from "../utils/getServices";
 import isOperational from "../utils/isOperational";
 import StatisticsDetail from "./StatisticsDetail";
-import {useState} from 'react';
-import '../styles/StatusDetail.css';
 import getUtilizationModifierClass from '../utils/getUtilizationModifierClass';
+import '../styles/StatusDetail.css';
+import Status from "../types/Status";
+import Tag from './Tag';
 
 type StatusDetailProps = {
     status: Status;
@@ -14,7 +14,7 @@ type StatusDetailProps = {
 
 const StatusDetail = ({ status }: StatusDetailProps) => {
     const [viewStats, setViewStats] = useState(false);
-    
+
     const handleClick = useCallback(() => setViewStats((prev) => !prev), [setViewStats]);
     
     return (
@@ -36,30 +36,20 @@ const StatusDetail = ({ status }: StatusDetailProps) => {
                     </div>
                     <div className="status-detail__tags">
                         {getServices(status.results.services).map(([name, status], idx) => 
-                            <div 
-                                key={idx} 
-                                className={`
-                                    status-detail__status
-                                    ${status ? 'status-detail--success' : 'status-detail--error'}
-                                `}
-                            >
-                                {name}
-                            </div>
+                            <Tag key={idx} status={status} name={name}/>
                         )}
-                        <div
-                            className={`
-                                status-detail__status
-                                ${getUtilizationModifierClass(status)}
-                            `}
-                        >{getCPUUtilization(status)} CPU load</div>
+                        <Tag 
+                            modifier={getUtilizationModifierClass(status)}
+                            name={`${getCPUUtilization(status)} CPU load`}
+                        />
                     </div>
                 </div>
                 <div 
                     className={`
                         status-detail__state
                         ${isOperational(status.results.services) ? 
-                            'status-detail--success-text' :
-                            'status-detail--error-text'
+                            'text--success' :
+                            'text--error'
                         }
                     `}>
                     {isOperational(status.results.services) ? 
