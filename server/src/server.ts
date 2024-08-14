@@ -3,7 +3,6 @@ import { WebSocketServer } from 'ws';
 import URL_ENDPOINTS, { POLLING_INTERVAL } from './utils/constants';
 import { config } from 'dotenv';
 import fetchStatus from './utils/fetchStatus';
-import broadcast from './utils/broadcast';
 
 config()
 
@@ -11,10 +10,18 @@ const app = express();
 
 const wss = new WebSocketServer({ noServer: true });
 
+const broadcast = (data: any) => {
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(data));
+    }
+  });
+};
+
 // Periodically fetch data and broadcast
 setInterval(async () => {
   const statuses = await fetchStatus(URL_ENDPOINTS);
-  broadcast(statuses, wss);
+  broadcast(statuses);
 }, POLLING_INTERVAL);
 
 const server = app.listen(process.env.REACT_APP_SERVER_PORT, () => {
