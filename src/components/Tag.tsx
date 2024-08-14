@@ -1,33 +1,30 @@
 import '../styles/Tag.css';
 
 type TagProps = {
-    name: string,
-    status?: boolean,
-    modifier?: string,
+  name: string;
+  status?: boolean;
+  modifier?: string;
+  onError?: (message: string) => void;
 };
 
-const Tag = ({name, status, modifier}: TagProps) => {
-    if(status !== undefined) return (
-        <div
-            className={`
-                tag__status
-                ${status ? 'background--success' : 'background--error'}
-            `}
-        >
-            {name}
-        </div>
-    );
+const Tag = ({ name, status, modifier, onError }: TagProps) => {
+  if (status && modifier) {
+    const errorMessage = 'You cannot use both status and modifier props simultaneously.';
+    if (onError) {
+      onError(errorMessage);
+    } else {
+      console.error(errorMessage);
+    }
+    return null;
+  }
 
-    if (modifier !== undefined) return (
-        <div className={`tag__status ${modifier}`}>
-            {name}
-        </div>
-    );
+  const classStatus = status ? 'background--success' : 'background--error';
 
-    return (
-        <div className={`tag__status ${modifier}`}>
-            {name}
-        </div>
-    );
+  return (
+    <div className={`tag__status ${modifier} ${classStatus}`}>
+      {name}
+    </div>
+  );
 };
+
 export default Tag;
