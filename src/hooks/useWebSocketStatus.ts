@@ -60,7 +60,7 @@ const useWebSocketStatus = (domain: string, serverPort: string, nodeEnv: string,
         ws.onopen = () => ws.close();
       }
     };
-  }, [domain, serverPort, timeoutDuration]);
+  }, [domain, nodeEnv, serverPort, timeoutDuration]);
 
   return { statuses, error, loading };
 };
