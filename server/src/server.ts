@@ -3,7 +3,7 @@ import { WebSocket, WebSocketServer } from 'ws';
 import cors from 'cors';
 import URL_ENDPOINTS, { POLLING_INTERVAL } from './utils/constants';
 import { config } from 'dotenv';
-import axios from 'axios';
+import fetchStatus from './utils/fetchStatus';
 
 config()
 
@@ -21,23 +21,10 @@ const broadcast = (data: any) => {
   });
 };
 
-const fetchStatus = async () => {
-  const statusPromises = URL_ENDPOINTS.map(async (endpoint) => {
-    try {
-      const response = await axios.get(endpoint);
-      return { endpoint, data: response.data };
-    } catch (error) {
-      return { endpoint, error: (error as {message: string}).message };
-    }
-  });
-
-  return Promise.all(statusPromises);
-};
-
 // Periodically fetch data and broadcast
 setInterval(async () => {
   try {
-    const statuses = await fetchStatus();
+    const statuses = await fetchStatus(URL_ENDPOINTS);
     broadcast(statuses);
   } catch (error) {
     console.error('Error fetching status:', error);
