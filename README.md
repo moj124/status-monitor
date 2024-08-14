@@ -22,12 +22,37 @@ $ make dev
 
 Open at [http://localhost:8080/](http://localhost:8080/)
 
-### `npm run eject`
+## Testing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Jest
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To run jest tests of individual util functions.
+```bash
+$ make test
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Cypress
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To run cypress GUI tests of react components.
+```bash
+$ npm run test:cypress:open
+```
+
+## Deployment with Fly.io
+Requires `flyctl` can be installed via [https://fly.io/docs/flyctl/install/](https://fly.io/docs/flyctl/install/).
+
+To deploy changes to the server and client.
+```bash
+$ make deploy
+```
+
+To deploy changes to the server.
+```bash
+$ npm run deploy:server
+```
+
+To deploy changes to the client.
+```bash
+$ npm run deploy
+```
+

@@ -33,7 +33,7 @@ deploy:
 .PHONY: deploy
 
 test:
-	npm run test:watch
+	npm run test
 .PHONY: test
 
 exec:

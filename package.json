@@ -23,8 +23,7 @@
     "build:full": "npm run build && npm run build:server",
     "deploy:full": "npm run deploy && npm run deploy:server",
     "test": "npx jest",
-    "test:cypress": "npx cypress open",
-    "eject": "react-scripts eject"
+    "test:cypress": "npx cypress open"
   },
   "eslintConfig": {
     "extends": [
