@@ -1,8 +1,9 @@
 import express from 'express';
-import WebSocket, { WebSocketServer } from 'ws';
-import axios from 'axios';
-import URL_ENDPOINTS, { POLLING_INTERVAL } from './constants';
+import { WebSocketServer } from 'ws';
+import URL_ENDPOINTS, { POLLING_INTERVAL } from './utils/constants';
 import { config } from 'dotenv';
+import fetchStatus from './utils/fetchStatus';
+import broadcast from './utils/broadcast';
 
 config()
 
@@ -10,36 +11,14 @@ const app = express();
 
 const wss = new WebSocketServer({ noServer: true });
 
-async function fetchStatus() {
-  const statusPromises = URL_ENDPOINTS.map(async (endpoint) => {
-    try {
-      const response = await axios.get(endpoint);
-      return { endpoint, data: response.data };
-    } catch (error) {
-      return { endpoint, error: (error as {message: string}).message };
-    }
-  });
-
-  return Promise.all(statusPromises);
-}
-
-// Broadcast data to all connected clients
-function broadcast(data: any) {
-  wss.clients.forEach(client => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify(data));
-    }
-  });
-}
-
 // Periodically fetch data and broadcast
 setInterval(async () => {
-  const statuses = await fetchStatus();
-  broadcast(statuses);
+  const statuses = await fetchStatus(URL_ENDPOINTS);
+  broadcast(statuses, wss);
 }, POLLING_INTERVAL);
 
 const server = app.listen(process.env.REACT_APP_SERVER_PORT, () => {
-  console.log(`Server is running on http://localhost:${process.env.REACT_APP_SERVER_PORT}`);
+  console.log(`Server is running on ${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_SERVER_PORT}`);
 });
 
 // HTTP server to handle upgrades to WebSocket
