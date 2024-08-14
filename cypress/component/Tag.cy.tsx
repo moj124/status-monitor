@@ -40,6 +40,12 @@ describe('Tag Component', () => {
     .should('have.class', 'background--warning');
   });
 
+  it('renders the Tag component with background error styles', () => {
+    mount(<Tag name="Important" modifier="background--error"/>);
+    cy.get('.tag__status')
+    .should('have.class', 'background--error');
+  });
+
   it('throws an error when both status and modifier are provided', () => {
     const errorHandler = cy.stub().as('errorHandler');
 
