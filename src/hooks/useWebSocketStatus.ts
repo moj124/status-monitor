@@ -10,7 +10,7 @@ const useWebSocketStatus = (domain: string, serverPort: string, nodeEnv: string,
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
     console.log('protocol', protocol, domain, serverPort);
     let url = `${protocol}://${domain}:${serverPort}`;
-    if (nodeEnv === 'production') url = `${protocol}://${domain}:${serverPort}.fly.dev`;
+    // if (nodeEnv === 'production') url = `${protocol}://${domain}:${serverPort}`;
     console.log('url', url, nodeEnv);
     const ws = new WebSocket(url);
 
