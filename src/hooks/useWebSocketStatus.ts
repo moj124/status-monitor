@@ -57,7 +57,8 @@ const useWebSocketStatus = (domain: string, serverPort: string, timeoutDuration:
         ws.onopen = () => ws.close();
       }
     };
-  }, [domain, serverPort, timeoutDuration]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return { statuses, error, loading };
 };
