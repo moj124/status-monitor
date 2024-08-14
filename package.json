@@ -15,9 +15,12 @@
     "start:server": "node build/server/src/server.js",
     "build:server": "tsc --project tsconfig.server.json",
     "dev:server": "npx ts-node -P ./tsconfig.server.json ./server/src/server.ts",
+    "deploy:server": "flyctl deploy -c fly.server.toml",
+    "deploy": "flyctl deploy -c fly.client.toml",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:full": "npm run build && npm run build:server",
+    "deploy:full": "npm run deploy && npm run deploy:server",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

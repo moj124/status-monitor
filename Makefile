@@ -28,21 +28,13 @@ up-all:
 	${DOCKER_COMPOSE} up -d --watch
 .PHONY: up-all
 
-start:
-	npm run start
-.PHONY: start
-
-start-dev:
-	npm run start:dev
-.PHONY: start-dev
+deploy:
+	npm run deploy:full
+.PHONY: deploy
 
 test:
 	npm run test:watch
 .PHONY: test
-
-lint:
-	npm run lint
-.PHONY: lint
 
 exec:
 	${DOCKER_EXEC} api /bin/bash
