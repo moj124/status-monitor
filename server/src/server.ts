@@ -1,5 +1,6 @@
 import express from 'express';
 import { WebSocketServer } from 'ws';
+import cors from 'cors';
 import URL_ENDPOINTS, { POLLING_INTERVAL } from './utils/constants';
 import { config } from 'dotenv';
 import fetchStatus from './utils/fetchStatus';
@@ -7,6 +8,8 @@ import fetchStatus from './utils/fetchStatus';
 config()
 
 const app = express();
+
+app.use(cors());
 
 const wss = new WebSocketServer({ noServer: true });
 
@@ -20,8 +23,12 @@ const broadcast = (data: any) => {
 
 // Periodically fetch data and broadcast
 setInterval(async () => {
-  const statuses = await fetchStatus(URL_ENDPOINTS);
-  broadcast(statuses);
+  try {
+    const statuses = await fetchStatus(URL_ENDPOINTS);
+    broadcast(statuses);
+  } catch (error) {
+    console.error('Error fetching status:', error);
+  }
 }, POLLING_INTERVAL);
 
 const server = app.listen(process.env.REACT_APP_SERVER_PORT, () => {
