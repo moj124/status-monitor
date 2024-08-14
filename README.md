@@ -56,3 +56,6 @@ To deploy changes to the client.
 $ npm run deploy
 ```
 
+## Issues to address
+- Two websocket connections are created on the inital mount due to the useWebSocketStatus useEffect hook. The fix would be to enforce singluar connections by using a useContext and ContextProvider functionality. This should prevent multiple websocket connections appearing within the network requests.
+
