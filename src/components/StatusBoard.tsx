@@ -8,7 +8,7 @@ const StatusBoard = () => {
   const { statuses, error, loading } = useWebSocketStatus(
     process.env.REACT_APP_DOMAIN!,
     process.env.REACT_APP_SERVER_PORT!,
-    process.env.NODE_ENV,
+    process.env.REACT_APP_NODE_ENV!,
     10000
   );
 
