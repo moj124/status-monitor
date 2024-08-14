@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Response } from '../types/Status';
 
-const useWebSocketStatus = (serverPort: string, domain: string, timeoutDuration: number) => {
+const useWebSocketStatus = (serverPort: number, domain: string, timeoutDuration: number) => {
   const [statuses, setStatuses] = useState<Response[]>([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);

@@ -6,7 +6,7 @@ import '../styles/StatusBoard.css';
 
 const StatusBoard = () => {
   const { statuses, error, loading } = useWebSocketStatus(
-    process.env.REACT_APP_SERVER_PORT!,
+    parseInt(process.env.REACT_APP_SERVER_PORT!,10),
     process.env.REACT_APP_DOMAIN!,
     10000
   );
