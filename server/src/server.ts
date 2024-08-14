@@ -1,5 +1,5 @@
 import express from 'express';
-import { WebSocketServer } from 'ws';
+import WebSocket, { WebSocketServer } from 'ws';
 import axios from 'axios';
 import URL_ENDPOINTS, { POLLING_INTERVAL } from './constants';
 import { config } from 'dotenv';
@@ -26,7 +26,7 @@ async function fetchStatus() {
 // Broadcast data to all connected clients
 function broadcast(data: any) {
   wss.clients.forEach(client => {
-    if (client.readyState === 1) {
+    if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify(data));
     }
   });
