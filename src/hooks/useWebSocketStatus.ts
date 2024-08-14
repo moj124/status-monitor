@@ -11,7 +11,7 @@ const useWebSocketStatus = (domain: string, serverPort: string, nodeEnv: string,
     console.log('protocol', protocol, domain, serverPort);
     let url = `${protocol}://${domain}:${serverPort}`;
     if (nodeEnv === 'production') url = `${protocol}://${domain}:${serverPort}.fly.dev`;
-    console.log('url', url);
+    console.log('url', url, nodeEnv);
     const ws = new WebSocket(url);
 
     let timeout: NodeJS.Timeout;
