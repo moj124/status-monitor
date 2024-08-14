@@ -12,6 +12,14 @@ services:
       - /app/node_modules
     ports:
       - "3000:3000"
+    develop:
+      watch:
+        - action: sync
+          path: ./server/src
+          target: /app/server/src
+          ignore:
+            - node_modules/
+    
 
   client:
     build:
@@ -26,3 +34,10 @@ services:
       - /app/node_modules
     ports:
       - "8080:8080"
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+          ignore:
+            - node_modules/
