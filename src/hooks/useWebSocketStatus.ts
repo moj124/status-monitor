@@ -8,6 +8,7 @@ const useWebSocketStatus = (serverPort: number, domain: string, timeoutDuration:
 
   useEffect(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    console.log('protocol', protocol, domain, serverPort);
     const url = `${protocol}://${domain}:${serverPort}`;
     const ws = new WebSocket(url);
 
