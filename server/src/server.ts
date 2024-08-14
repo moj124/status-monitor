@@ -21,8 +21,8 @@ const broadcast = (data: any) => {
   });
 };
 
-const fetchStatus = async (url_endpoints: string[]) => {
-  const statusPromises = url_endpoints.map(async (endpoint) => {
+const fetchStatus = async () => {
+  const statusPromises = URL_ENDPOINTS.map(async (endpoint) => {
     try {
       const response = await axios.get(endpoint);
       return { endpoint, data: response.data };
@@ -37,7 +37,7 @@ const fetchStatus = async (url_endpoints: string[]) => {
 // Periodically fetch data and broadcast
 setInterval(async () => {
   try {
-    const statuses = await fetchStatus(URL_ENDPOINTS);
+    const statuses = await fetchStatus();
     broadcast(statuses);
   } catch (error) {
     console.error('Error fetching status:', error);
