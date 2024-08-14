@@ -1,5 +1,5 @@
 import express from 'express';
-import { WebSocketServer } from 'ws';
+import { WebSocket, WebSocketServer } from 'ws';
 import cors from 'cors';
 import URL_ENDPOINTS, { POLLING_INTERVAL } from './utils/constants';
 import { config } from 'dotenv';
@@ -14,7 +14,7 @@ app.use(cors());
 const wss = new WebSocketServer({ noServer: true });
 
 const broadcast = (data: any) => {
-  wss.clients.forEach(client => {
+  wss.clients.forEach((client: WebSocket) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify(data));
     }
