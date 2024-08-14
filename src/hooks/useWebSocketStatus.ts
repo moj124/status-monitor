@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Response } from '../types/Status';
 
-const useWebSocketStatus = (serverPort: string, domain: string, NODE_ENV: string, timeoutDuration: number) => {
+const useWebSocketStatus = (serverPort: string, domain: string, timeoutDuration: number) => {
   const [statuses, setStatuses] = useState<Response[]>([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-    let url = `${protocol}://${domain}:${serverPort}`;
-    if (NODE_ENV === 'production') url = `${protocol}://${domain}:${serverPort}`;
+    const url = `${protocol}://${domain}:${serverPort}`;
     const ws = new WebSocket(url);
 
     let timeout: NodeJS.Timeout;
@@ -58,7 +57,7 @@ const useWebSocketStatus = (serverPort: string, domain: string, NODE_ENV: string
         ws.onopen = () => ws.close();
       }
     };
-  }, [NODE_ENV, domain, serverPort, timeoutDuration]);
+  }, [domain, serverPort, timeoutDuration]);
 
   return { statuses, error, loading };
 };
