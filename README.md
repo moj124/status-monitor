@@ -57,5 +57,4 @@ $ npm run deploy
 ```
 
 ## Issues to address
-- Two websocket connections are created on the inital mount due to the useWebSocketStatus useEffect hook. The fix would be to enforce singluar connections by using a useContext and ContextProvider functionality. This should prevent multiple websocket connections appearing within the network requests.
-
+- Request URL: wss://status-monitor-snowy-snowflake-524.fly.dev:8080/ws multiple requests are appearing resulting in timeout error connections in console window. Check websocket polling.
