@@ -19,9 +19,9 @@ const Tag = ({ name, status, modifier, onError }: TagProps) => {
   }
 
   const classStatus = status ? 'background--success' : 'background--error';
-
+  const appliedClass = modifier || classStatus;
   return (
-    <div className={`tag__status ${modifier} ${classStatus}`}>
+    <div className={`tag__status ${modifier} ${appliedClass}`}>
       {name}
     </div>
   );
