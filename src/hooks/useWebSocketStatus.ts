@@ -1,15 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Response } from '../types/Status';
 
 const useWebSocketStatus = (domain: string, serverPort: string, timeoutDuration: number) => {
-  const [statuses, setStatuses] = useState<Response[]>([]);
+  const ws = useRef<WebSocket | null>(null);
+  const [statuses, setStatuses] = useState<Response[]>([])
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
     let url = `${protocol}://${domain}:${serverPort}`;
-    const ws = new WebSocket(url);
+    
+    if(ws.current === null) {
+      ws.current = new WebSocket(url);
+    }
+
+    if (!ws.current) throw new Error('ws WebSocket is null'); 
 
     let timeout: NodeJS.Timeout;
 
@@ -17,15 +23,15 @@ const useWebSocketStatus = (domain: string, serverPort: string, timeoutDuration:
       console.error('WebSocket connection timed out');
       setError(true);
       setLoading(false);
-      ws.close();
+      ws.current?.close();
     };
 
-    ws.onopen = () => {
+    ws.current.onopen = () => {
       setLoading(true);
       timeout = setTimeout(handleTimeOut, timeoutDuration);
     }
 
-    ws.onmessage = (event) => {
+    ws.current.onmessage = (event) => {
       clearTimeout(timeout);
       try {
         const data = JSON.parse(event.data) as Response[];
@@ -38,23 +44,23 @@ const useWebSocketStatus = (domain: string, serverPort: string, timeoutDuration:
       }
     };
 
-    ws.onerror = (event) => {
+    ws.current.onerror = (event) => {
       clearTimeout(timeout);
       console.error("WebSocket error observed:", event);
       setError(true);
     };
 
-    ws.onclose = () => {
+    ws.current.onclose = () => {
       clearTimeout(timeout);
       setLoading(false);
     };
 
     return () => {
       clearTimeout(timeout);
-      if (ws.readyState === WebSocket.OPEN) {
-        ws.close();
-      } else if (ws.readyState === WebSocket.CONNECTING) {
-        ws.onopen = () => ws.close();
+      if (ws.current?.readyState === WebSocket.OPEN) {
+        ws.current?.close();
+      } else if (ws.current?.readyState === WebSocket.CONNECTING) {
+        ws.current.onopen = () => ws.current?.close();
       }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
